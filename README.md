@@ -7,7 +7,7 @@ Subgrab finds, probes, and then takes screenshots of subdomains for a given targ
 `git clone https://github.com/brianbutchart/subgrab.git`
 
 ## Dependencies
-Subgrab requires pyppeteer to be installed:
+Install pyppeteer before running subgrab:
 
 `pip install pyppeteer`
 
