@@ -4,8 +4,8 @@ from pyppeteer import launch
 async def take_screenshot(subdomain, path):
     browser = await launch(headless=True)
     page = await browser.newPage()
-    await page.goto(f'https://{subdomain}')
-    await page.screenshot({'path': f'{path}\\{subdomain}.png', 'fullPage': True})
+    await page.goto(url=f'https://{subdomain}', timeout=10*1000)
+    await asyncio.wait_for(page.screenshot(path=f'{path}\\{subdomain}.png', fullPage=True), timeout=10)
     await browser.close()
 
 parser = argparse.ArgumentParser()
@@ -47,11 +47,18 @@ for i, site in enumerate(sites, start=1):
     print('...Testing Subdomains')
     for j, subdomain in enumerate(result, start=1):
         try:
-            response = requests.get(f'https://{subdomain}', timeout=5)
+            response = requests.get(f'https://{subdomain}', timeout=10)
             print(f'({j}/{num_subs}) {subdomain}: {response}')
-            asyncio.get_event_loop().run_until_complete(take_screenshot(subdomain, path))
+            try:
+                print('***TAKING SCREENSHOT***')
+                asyncio.get_event_loop().run_until_complete(take_screenshot(subdomain, path))
+                print('***SCREENSHOT TAKEN***')
+            except:
+                print('Unable to take screenshot')
         except:
             print(f'({j}/{num_subs}) {subdomain} failed to connect')
+
+
 
     print('*******************\n')
     
