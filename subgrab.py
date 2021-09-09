@@ -1,11 +1,13 @@
 import requests, re, asyncio, os, time, argparse
 from pyppeteer import launch
 
+TIMEOUT = 10
+
 async def take_screenshot(subdomain, path):
     browser = await launch(headless=True)
     page = await browser.newPage()
-    await page.goto(url=f'https://{subdomain}', timeout=10*1000)
-    await asyncio.wait_for(page.screenshot(path=f'{path}\\{subdomain}.png', fullPage=True), timeout=10)
+    await page.goto(url=f'https://{subdomain}', timeout=TIMEOUT*1000)
+    await asyncio.wait_for(page.screenshot(path=f'{path}\\{subdomain}.png', fullPage=True), timeout=TIMEOUT)
     await browser.close()
 
 parser = argparse.ArgumentParser()
@@ -47,7 +49,7 @@ for i, site in enumerate(sites, start=1):
     print('...Testing Subdomains')
     for j, subdomain in enumerate(result, start=1):
         try:
-            response = requests.get(f'https://{subdomain}', timeout=10)
+            response = requests.get(f'https://{subdomain}', timeout=TIMEOUT)
             print(f'({j}/{num_subs}) {subdomain}: {response}')
             try:
                 print('***TAKING SCREENSHOT***')
