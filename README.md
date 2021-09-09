@@ -1,7 +1,7 @@
 # subgrab
 Subgrab finds, probes, and then takes screenshots of subdomains for a given target or set of targets.
 
-![subrab](https://user-images.githubusercontent.com/54566106/132284474-e914457e-7187-4848-ba03-ceabd0d5a113.png)
+![subgrab2](https://user-images.githubusercontent.com/54566106/132619263-601c15f3-9205-466a-816f-bce983311c01.png)
 
 ## Installation
 `git clone https://github.com/brianbutchart/subgrab.git`
